@@ -17,4 +17,8 @@ RUN cd /var/www; npm install
 RUN service nginx restart
 
 EXPOSE 80
-CMD ["npm", "start"]
+RUN groupadd -r nodejs \
+    && useradd -m -r -g nodejs nodejs
+USER nodejs
+# CMD ["npm", "start"]
+RUN pm2 start app.js 
